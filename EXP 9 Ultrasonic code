@@ -1,0 +1,40 @@
+// Ultrasonic Distance Measurement using HC-SR04
+
+int trig = 10;
+int echo = 9;
+
+long duration;
+int cm;
+
+void setup()
+{
+    pinMode(trig, OUTPUT);
+    pinMode(echo, INPUT);
+
+    Serial.begin(9600);
+}
+
+void loop()
+{
+    // Trigger the ultrasonic sensor
+    digitalWrite(trig, LOW);
+    delayMicroseconds(10);
+
+    digitalWrite(trig, HIGH);
+    delayMicroseconds(10);
+
+    digitalWrite(trig, LOW);
+
+    // Read the echo pulse
+    duration = pulseIn(echo, HIGH);
+
+    // Calculate distance in centimeters
+    cm = (duration / 2) * 0.034;
+
+    // Display the distance on the Serial Monitor
+    Serial.print("Distance = ");
+    Serial.print(cm);
+    Serial.println(" cm");
+
+    delay(500);
+}
